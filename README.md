@@ -4,7 +4,7 @@
 
 ## ✨ Python Interview Preparation Roadmap
 
-*Intensive practice: at least **5 problems per day***
+*Intensive practice: at least **2 problems per day***
 
 ---
 
