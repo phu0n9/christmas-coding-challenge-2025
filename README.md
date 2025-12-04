@@ -34,7 +34,7 @@
 * Binary Search Trees
 * Depth/height problems
 
-### **Day 6 — Trees (Part 3)**
+### **Day 6 — Trees (Part 3) and Tries**
 * Remaining trees
 
 ### **Day 7 — Backtracking (Part 1)**
@@ -51,7 +51,7 @@
 * Decision trees
 * Constraint-based backtracking
 
-### **Day 9 — Tries & Graphs (Part 1)**
+### **Day 9 — Graphs (Part 1)**
 
 * Trie construction & queries
 * Graph representation basics
