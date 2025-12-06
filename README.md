@@ -34,8 +34,9 @@
 * Binary Search Trees
 * Depth/height problems
 
-### **Day 6 — Trees (Part 3) and Tries**
-* Remaining trees
+### **Day 6 — Trees (Part 3) and Trie**
+* 2 Hard problems on tree
+* 3 Problems on Trie
 
 ### **Day 7 — Backtracking (Part 1)**
 
