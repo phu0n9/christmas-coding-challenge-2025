@@ -145,7 +145,113 @@ class Trie:
 ```
 
 
-### []()
+### [Problem 211: Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/description/)
+Hints:
+- Use trie
+- Add word like in implementing trie problem
+- Search word when it has '.', what if search like: 'b.t' and it is like this:
+```
+     b
+     |
+     a
+   /  |  \
+  d   g   t
+```
+- So we have to iterate through every child like bad or bag or bat
+- We have to use another ending symbol like '#' or '$'
 
-### []()
+```
+class WordDictionary:
+
+    def __init__(self):
+        self.trie = {}
+
+    def addWord(self, word: str) -> None:
+        trie = self.trie
+
+        for c in word:
+            if c not in trie:
+                trie[c] = {}
+            trie = trie[c]
+        trie['#'] = '#'
+
+    def search(self, word: str) -> bool:
+        trie = self.trie
+
+        def dfs(word, i, trie):
+            if len(word) == i:
+                return '#' in trie
+            
+            c = word[i]
+
+            if c == '.':
+                for child in trie:
+                    if child != '#' and dfs(word, i + 1, trie[child]):
+                        return True
+                return False
+            else:
+                if c not in trie:
+                    return False
+                return dfs(word, i + 1, trie[c])
+        
+        return dfs(word, 0, trie)
+```
+
+
+### [Problem 212: Word Search](https://leetcode.com/problems/word-search-ii/)
+Hints:
+- Add words to trie
+- Use DFS and mark the node it has been visited
+- Remember to return the previous character where it has been visited
+
+```
+def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+    trie = {}
+    res = []
+
+    def add_word(trie, word):
+        for c in word:
+            if c not in trie:
+                trie[c] = {}
+            trie = trie[c]
+        
+        trie['.'] = '.'
+    
+    for word in words:
+        add_word(trie, word)
+    
+    m = len(board)
+    n = len(board[0])
+
+    def dfs(i, j, trie, word):
+        if i < 0 or j < 0 or i >= m or j >= n:
+            return
+        
+        c = board[i][j]
+
+        if c not in trie:
+            return
+        
+        trie = trie[c]
+
+        if '.' in trie:
+            res.append(word+c)
+
+        board[i][j] = '#'
+            
+        dfs(i + 1, j, trie, word + c)
+        dfs(i - 1, j, trie, word + c)
+        dfs(i, j + 1, trie, word + c)
+        dfs(i, j - 1, trie, word + c)
+
+        board[i][j] = c
+        
+    for i in range(m):
+        for j in range(n):
+            c = board[i][j]
+            if c in trie:
+                dfs(i, j, trie, "")
+    
+    return list(set(res))
+```
 
