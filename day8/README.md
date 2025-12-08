@@ -146,3 +146,47 @@ def letterCombinations(self, digits: str) -> List[str]:
 
     return res
 ```
+
+### [Problem 51: N-Queens](https://leetcode.com/problems/n-queens/description/)
+Hints:
+- The trick is we cannot allow 2 queens with the same column or diagnol 
+- And there are two kinds of diagnol (right to left or left to right)
+- However, in the same diagnol line from left to right, all the position can be the same as (r - c)
+- in the same diagnol line from right to left, all the position can be the same as (r + c)
+- So we need to keep track of the position of these using 3 different hashset: column, positive_diagnol (right to left), negative_diagnol (left to right)
+- So we need to iterate through each row, and keep track of column, and 2 direction diagnol positions
+- Remember to set the current board[r][c] to 'Q' and set it back after we finished the recursive as well as remove the current position of col or 2 diagnols
+
+```
+def solveNQueens(self, n: int) -> List[List[str]]:
+    res = []
+    board = [["."] * n for row in range(n)]
+    col = set()
+    pos_diagonal = set() # r + c
+    neg_diagonal = set() # r - c
+
+    def backtrack(r):
+        if r == n:
+            copy = ["".join(row) for row in board]
+            res.append(copy)
+            return
+        
+        for c in range(n):
+            if c in col or (r + c) in pos_diagonal or (r - c) in neg_diagonal:
+                continue
+            
+            board[r][c] = 'Q'
+            col.add(c)
+            pos_diagonal.add(r + c)
+            neg_diagonal.add(r - c)
+
+            backtrack(r + 1)
+
+            board[r][c] = '.'
+            col.remove(c)
+            pos_diagonal.remove(r + c)
+            neg_diagonal.remove(r - c)
+
+    backtrack(0)
+    return res
+```
