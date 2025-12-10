@@ -1,5 +1,7 @@
 # Day 9
 
+- 6 Medium problems
+
 ### [Problem 200: Number of Islands](https://leetcode.com/problems/number-of-islands/description/)
 Hints:
 - use dfs and no need to revisit the positions based on setting to '0'
@@ -173,4 +175,42 @@ def orangesRotting(self, grid: List[List[int]]) -> int:
 
         res += 1
     return -1 if fresh > 0 else res
+```
+
+### [Problem 417: Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/description/)
+Hints:
+- There is no shortest path or anything so we can use DFS or BFS
+- Since we notice that the pacific and atlantic areas that can have squares that can make water overflows are in the edges (the rows and cols which is the borders of the grid in 4 directions)
+- Therefore, we need to iterate DFS through these areas first and store the position that has higher height than the previous height area, we need to have two hashset of pacific and atlantic 
+- And then after that we iterate through rows and cols and check where are the position both appearing in pacific and atlantic hashset and add to the result
+
+```
+def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+    pacific, atlanta = set(), set()
+    res = []
+    ROWS, COLS = len(heights), len(heights[0])
+    def dfs(r, c, visit, prev_height):
+        if r < 0 or c < 0 or r == ROWS or c == COLS or (r, c) in visit or heights[r][c] < prev_height:
+            return
+        
+        visit.add((r, c))
+        dfs(r + 1, c, visit, heights[r][c])
+        dfs(r - 1, c, visit, heights[r][c])
+        dfs(r, c + 1, visit, heights[r][c])
+        dfs(r, c - 1, visit, heights[r][c])
+    
+    for c in range(COLS):
+        dfs(0, c, pacific, heights[0][c])
+        dfs(ROWS - 1, c, atlanta, heights[ROWS-1][c])
+    
+    for r in range(ROWS):
+        dfs(r, 0, pacific, heights[r][0])
+        dfs(r, COLS - 1, atlanta, heights[r][COLS-1])
+    
+    for r in range(ROWS):
+        for c in range(COLS):
+            if (r,c) in pacific and (r, c) in atlanta:
+                res.append([r, c])
+    
+    return res
 ```
