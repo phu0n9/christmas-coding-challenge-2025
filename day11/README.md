@@ -1,4 +1,5 @@
 # Day 11:
+- 7 Problems
 
 ### [Problem 703: Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/description/)
 Hints:
